@@ -1,8 +1,8 @@
 launch:
     parameters: 
-         appPrefix:
-             description: Web application prefix
-             default: myApp
+         app:
+             description: Web application
+             default: https://s3.amazonaws.com/adp-chef/sample.war
          accessKey:
              description: AWS Access Key
          secretKey:
@@ -41,10 +41,38 @@ launch:
                 roles: [web]
                 command:
                      - ~/wlp_scripts/install.sh
+        - deploy:
+            action: execrun
+            description: Deploy the application to WLP
+            parameters:
+                phase: deployment
+                precedingPhases: [run]
+                roles: [web]
+                command:
+                     - ~/wlp_scripts/deploy.sh
+                     - $app
     return:
         - appUrl:
             description: Url to the application
-            value: http://${publicIp}:9080
+            value: http://${publicIp}:9080/sample
+
+
+update:
+    parameters:
+         app:
+             description: Web application
+             default: https://s3.amazonaws.com/adp-chef/sample.war
+    steps:
+        - deploy:
+            action: execrun
+            description: Execute instalation of WLP
+            parameters:
+                phase: deployment
+                precedingPhases: [run]
+                roles: [web]
+                command:
+                     - ~/wlp_scripts/deploy.sh
+                     - $app
 
 destroy:
   steps:
