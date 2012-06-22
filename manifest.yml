@@ -3,41 +3,31 @@ launch:
          appPrefix:
              description: Web application prefix
              default: myApp
-         accessKey:
-             description: AWS Access Key
-         secretKey:
-             description: AWS Secret Key
 
     steps:
         - provision:
-            action: provisionAmazonVm
+            action: compute.grow
             parameters:
-                 roleName: web
-                 jcloudsIdentity: $accessKey
-                 jcloudsCredential: $secretKey
-                 ec2SecurityGroup: wlc
+                roleName: web
             output:
                  publicIp: ips
-        - install-java:
-            action: install
-            parameters:
-                roles: [web]
-                runList: ["recipe[java]"]
         - download:
             action: gitClone
             parameters:
                 roles: [web]
+                phase: download
+                precedingPhases: [provision]
                 url: https://github.com/erkfel/wlp.git
-                targetDirectory: ~/wlp
-#        - install-wlc:
-#            action: execrun
-#            description: Sample command for cloning git repos
-#            parameters:
-#                phase: "install"
-#                precedingPhases: ["exec"]
-#                roles: [web]
-#                command:
-#                     - ~/wlp/install.sh
+                targetDirectory: wlp
+        - install:
+            action: execrun
+            description: Sample command for cloning git repos
+            parameters:
+                phase: run
+                precedingPhases: [download]
+                roles: [web]
+                command:
+                     - ~/wlp/install.sh
 
     return:
         - appUrl:
