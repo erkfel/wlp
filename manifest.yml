@@ -3,16 +3,24 @@ launch:
          appPrefix:
              description: Web application prefix
              default: myApp
+         accessKey:
+             description: AWS Access Key
+         secretKey:
+             description: AWS Secret Key
 
     steps:
         - provision:
-            action: compute.grow
+            action: provisionAmazonVm
             parameters:
-                roleName: web
+                 roleName: web
+                 jcloudsIdentity: $accessKey
+                 jcloudsCredential: $secretKey
+                 ec2SecurityGroup: wlc
             output:
                  publicIp: ips
         - download:
             action: gitClone
+            description: Clone instalation scripts to install WLP
             parameters:
                 roles: [web]
                 phase: download
@@ -21,14 +29,13 @@ launch:
                 targetDirectory: wlp
         - install:
             action: execrun
-            description: Sample command for cloning git repos
+            description: Execute instalation of WLP
             parameters:
                 phase: run
                 precedingPhases: [download]
                 roles: [web]
                 command:
                      - ~/wlp/install.sh
-
     return:
         - appUrl:
             description: Url to the application
