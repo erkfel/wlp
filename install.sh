@@ -9,7 +9,7 @@
 wget https://s3.amazonaws.com/adp-chef/wlp-developers-8.5.0.0.jar
 echo -e '\n\n1\n' | java -jar wlp-developers-8.5.0.0.jar
 wlp/bin/server create
-sudo mv server.xml wlp/usr/servers/defaultServer/
+sudo mv wlp_scripts/server.xml wlp/usr/servers/defaultServer/
 wlp/bin/server start
 cd wlp/usr/servers/defaultServer/dropins/
 wget $1
