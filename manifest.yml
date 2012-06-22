@@ -31,7 +31,7 @@ launch:
                 phase: download
                 precedingPhases: [deploy]
                 url: https://github.com/erkfel/wlp.git
-                targetDirectory: wlp
+                targetDirectory: wlp_scripts
         - install:
             action: execrun
             description: Execute instalation of WLP
@@ -40,7 +40,7 @@ launch:
                 precedingPhases: [download]
                 roles: [web]
                 command:
-                     - ~/wlp/install.sh
+                     - ~/wlp_scripts/install.sh
     return:
         - appUrl:
             description: Url to the application
