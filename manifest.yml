@@ -29,15 +29,15 @@ launch:
                 roles: [web]
                 url: https://github.com/erkfel/wlp.git
                 targetDirectory: ~/wlp
-        - install-wlc:
-            action: execrun
-            description: Sample command for cloning git repos
-            parameters:
-                phase: "install"
-                precedingPhases: ["exec"]
-                roles: [web]
-                command:
-                     - ~/wlp/install.sh
+#        - install-wlc:
+#            action: execrun
+#            description: Sample command for cloning git repos
+#            parameters:
+#                phase: "install"
+#                precedingPhases: ["exec"]
+#                roles: [web]
+#                command:
+#                     - ~/wlp/install.sh
 
     return:
         - appUrl:
