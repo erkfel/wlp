@@ -23,21 +23,21 @@ launch:
             parameters:
                 roles: [web]
                 runList: ["recipe[java]"]
-#        - download:
-#            action: gitClone
-#            parameters:
-#                roles: [web]
-#                url: https://github.com/erkfel/wlp.git
-#                targetDirectory: ~/wlp
-#        - install-wlc:
-#            action: execrun
-#            description: Sample command for cloning git repos
-#            parameters:
-#                phase: "install"
-#                precedingPhases: ["exec"]
-#                roles: ["defaultRole"]
-#                command:
-#                     - ~/wlp/install.sh
+        - download:
+            action: gitClone
+            parameters:
+                roles: [web]
+                url: https://github.com/erkfel/wlp.git
+                targetDirectory: ~/wlp
+        - install-wlc:
+            action: execrun
+            description: Sample command for cloning git repos
+            parameters:
+                phase: "install"
+                precedingPhases: ["exec"]
+                roles: [web]
+                command:
+                     - ~/wlp/install.sh
 
     return:
         - appUrl:
