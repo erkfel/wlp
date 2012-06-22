@@ -18,13 +18,18 @@ launch:
                  ec2SecurityGroup: wlc
             output:
                  publicIp: ips
+        - install-java:
+             action: install
+                 parameters:
+                 roles: [web]
+                 runList: ["recipe[java]"]
         - download:
             action: gitClone
             description: Clone instalation scripts to install WLP
             parameters:
                 roles: [web]
                 phase: download
-                precedingPhases: [provision]
+                precedingPhases: [deploy]
                 url: https://github.com/erkfel/wlp.git
                 targetDirectory: wlp
         - install:
