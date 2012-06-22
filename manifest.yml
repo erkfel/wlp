@@ -19,10 +19,10 @@ launch:
             output:
                  publicIp: ips
         - install-java:
-             action: install
-                 parameters:
-                 roles: [web]
-                 runList: ["recipe[java]"]
+            action: install
+            parameters:
+                roles: [web]
+                runList: ["recipe[java]"]
         - download:
             action: gitClone
             description: Clone instalation scripts to install WLP
